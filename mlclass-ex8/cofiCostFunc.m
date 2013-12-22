@@ -43,8 +43,11 @@ part = ((Theta * X')' - Y) .* R;
 X_grad = part * Theta;
 Theta_grad = part' * X;
 
-J = sum(sum( ( ((Theta * X')' - Y) .* R)  .^2));
+J = sum(sum(part.^2));
 J = J / 2;
+reg1 = (lambda/2) * sum(sum(Theta.^2));
+reg2 = (lambda/2) * sum(sum(X.^2));
+J = J + reg1 + reg2;
 % =============================================================
 
 grad = [X_grad(:); Theta_grad(:)];
